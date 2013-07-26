@@ -13,7 +13,6 @@ class Alert < ActiveRecord::Base
       send_sms
     end
     update_status
-    # binding.pry
   end
   
   def gone_down?
