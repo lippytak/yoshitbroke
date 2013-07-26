@@ -1,10 +1,5 @@
 class Alert < ActiveRecord::Base
   attr_accessible :url, :owner_phone
-  after_initialize :init
-  
-  def init
-    self.status = live_status
-  end
 
   def self.send_all_alerts
     alerts = Alert.all.each

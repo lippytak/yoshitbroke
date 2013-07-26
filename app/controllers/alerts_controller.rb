@@ -41,6 +41,7 @@ class AlertsController < ApplicationController
   # POST /alerts.json
   def create
     @alert = Alert.new(params[:alert])
+    @alert.status = live_status2(params[:alert])
 
     respond_to do |format|
       if @alert.save
@@ -91,6 +92,18 @@ class AlertsController < ApplicationController
     @alerts = Alert.all
     @alerts.each do |a|
       a.send_sms
+    end
+  end
+
+  private
+  # get rid of this stupid method
+  def live_status2(test)
+    uri = URI.parse(test['url'])
+    response = Net::HTTP.get_response(uri)
+    if response.code[0] == "2"
+      1
+    else
+      -1
     end
   end
 end
