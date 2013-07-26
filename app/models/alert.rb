@@ -1,5 +1,6 @@
 class Alert < ActiveRecord::Base
-  attr_accessible :url, :owner_phone
+  attr_accessible :url, :phones
+  has_and_belongs_to_many :phones
   after_initialize :init
   
   def init
@@ -15,7 +16,7 @@ class Alert < ActiveRecord::Base
 
   def trigger_sms_alert
     if gone_down?
-      send_sms
+      send_sms_to_all_phones
     end
     update_status
   end
@@ -39,7 +40,13 @@ class Alert < ActiveRecord::Base
     self.save
   end
 
-  def send_sms
+  def send_sms_to_all_phones
+    self.phones.each do |p|
+      send_sms(p.phone_number)
+    end
+  end
+
+  def send_sms(phone_number)
     sid = ENV['ACCOUNT_SID']
     auth_token = ENV['AUTH_TOKEN']
     from_number = ENV['TWIL_NUMBER']
@@ -48,7 +55,7 @@ class Alert < ActiveRecord::Base
 
     @client.account.sms.messages.create(
     :from => from_number,
-    :to => owner_phone,
+    :to => phone_number,
     :body => "Yo shit broke! #{self.url}"
     )
   end

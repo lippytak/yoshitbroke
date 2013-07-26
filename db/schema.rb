@@ -11,14 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724170216) do
+ActiveRecord::Schema.define(:version => 20130726214656) do
 
   create_table "alerts", :force => true do |t|
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "url"
-    t.string   "owner_phone"
     t.integer  "status"
+  end
+
+  create_table "alerts_phones", :id => false, :force => true do |t|
+    t.integer "alert_id"
+    t.integer "phone_id"
+  end
+
+  add_index "alerts_phones", ["alert_id", "phone_id"], :name => "index_alerts_phones_on_alert_id_and_phone_id"
+  add_index "alerts_phones", ["phone_id"], :name => "index_alerts_phones_on_phone_id"
+
+  create_table "phones", :force => true do |t|
+    t.string   "phone_number"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end
