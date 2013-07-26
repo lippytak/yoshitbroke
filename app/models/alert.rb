@@ -1,7 +1,13 @@
 class Alert < ActiveRecord::Base
   attr_accessible :url, :phones
   has_and_belongs_to_many :phones
+  before_validation :format_url
+  validates_format_of :url, :with => URI::regexp(%w(http https))
   before_save :set_status_to_live
+
+  def format_url
+    self.url = "http://#{self.url}" unless self.url[/^https?/]
+  end
 
   def self.send_all_alerts
     alerts = Alert.all.each
