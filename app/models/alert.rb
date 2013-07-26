@@ -4,7 +4,9 @@ class Alert < ActiveRecord::Base
   after_initialize :init
   
   def init
-    self.status = live_status
+    if self.url
+      self.status = live_status
+    end
   end
 
   def self.send_all_alerts

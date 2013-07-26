@@ -16,7 +16,11 @@
         <% @alerts.each do |alert| %>
           <tr>
             <td><%= link_to alert.url, alert.url %></td>
-            <td><%= alert.owner_phone %></td>
+            <td>
+              <% alert.phones.each do |p| %>
+                <%= p.phone_number %>,
+              <% end %>
+            </td>
             <td><%= alert.status %></td>
             <td><%= alert.updated_at %></td>
             <td><%= link_to 'Show', alert, :class=>'button small' %></td>
