@@ -80,4 +80,17 @@ class AlertsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # Send SMS alerts
+  def send_all_alerts
+    Alert.send_all_alerts
+  end
+
+  # Just testing...
+  def test_send_all_sms
+    @alerts = Alert.all
+    @alerts.each do |a|
+      a.send_sms
+    end
+  end
 end

@@ -1,4 +1,4 @@
-<h1>Listing alerts</h1>
+<h1>Alerts</h1>
 
 <table>
   <tr>
@@ -9,6 +9,7 @@
 
 <% @alerts.each do |alert| %>
   <tr>
+    <td><%= alert.url %> > <%= alert.owner_phone %></td>
     <td><%= link_to 'Show', alert %></td>
     <td><%= link_to 'Edit', edit_alert_path(alert) %></td>
     <td><%= link_to 'Destroy', alert, method: :delete, data: { confirm: 'Are you sure?' } %></td>

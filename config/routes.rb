@@ -1,4 +1,7 @@
 Yoshitbroke::Application.routes.draw do
+  root to: 'alerts#index'
+  match '/test_send_all_sms', :controller => 'alerts', :action => 'test_send_all_sms'
+  match '/send_all_alerts', :controller => 'alerts', :action => 'send_all_alerts'
   resources :alerts
 
 

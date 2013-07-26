@@ -1,0 +1,15 @@
+<%= form_tag("", method: "get", class: "nifty_form") do %>
+  <%= label_tag("Url:") %>
+  <%= text_field(:alert, :url) %>
+
+  <br>
+  <%= label_tag("Phone:") %>
+  <%= text_field(:alert, :phone) %>
+
+  <br>
+  <%= submit_tag("Submit") %>
+<% end %>
+
+<br>
+
+<%= params[:alert] %>
