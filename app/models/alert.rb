@@ -4,7 +4,7 @@ class Alert < ActiveRecord::Base
   after_initialize :init
   
   def init
-    if self.url
+    if defined? self.url
       self.status = live_status
     end
   end
