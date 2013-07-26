@@ -13,11 +13,11 @@ class Alert < ActiveRecord::Base
       send_sms
     end
     update_status
+    # binding.pry
   end
   
   def gone_down?
     self.status == 1 and live_status == -1
-    binding.pry
   end
 
   def live_status
@@ -32,6 +32,7 @@ class Alert < ActiveRecord::Base
 
   def update_status
     self.status = live_status
+    self.save
   end
 
   def send_sms
