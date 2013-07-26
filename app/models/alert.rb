@@ -17,13 +17,13 @@ class Alert < ActiveRecord::Base
   
   def gone_down?
     self.status == 1 and live_status == -1
+    binding.pry
   end
 
   def live_status
     uri = URI.parse(self.url)
     response = Net::HTTP.get_response(uri)
-    cd = response.code
-    if cd[0] == "2"
+    if response.code[0] == "2"
       1
     else
       -1

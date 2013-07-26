@@ -10,6 +10,14 @@ gem 'unicorn'
 gem 'twilio-ruby'
 gem 'net-http-persistent'
 
+group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'sqlite3', '1.3.5'
+  gem 'rspec-rails'
+  gem 'dotenv-rails'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

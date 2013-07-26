@@ -16,3 +16,6 @@
 
 # Ignore all env files
 .env*
+
+# Ingnore the database config so Andy can use sqlite
+/config/database.yml
