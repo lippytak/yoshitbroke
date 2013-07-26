@@ -1,7 +1,7 @@
 class Alert < ActiveRecord::Base
   attr_accessible :url, :phones
   has_and_belongs_to_many :phones
-  before_save :update_status
+  before_save :set_status_to_live
 
   def self.send_all_alerts
     alerts = Alert.all.each
@@ -31,8 +31,13 @@ class Alert < ActiveRecord::Base
     end
   end
 
+  def set_status_to_live
+    self.status = live_status
+
+  end
   def update_status
     self.status = live_status
+    self.save
   end
 
   def send_sms_to_all_phones
