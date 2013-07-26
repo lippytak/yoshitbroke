@@ -5,11 +5,12 @@
     <th>Url</th>
     <th>Phone</th>
     <th>Status</th>
+    <th>Last updated</th>
   </tr>
 
 <% @alerts.each do |alert| %>
   <tr>
-    <td><%= alert.url %> > <%= alert.owner_phone %> <%= alert.status %></td>
+    <td><%= alert.url %> > <%= alert.owner_phone %> <%= alert.status %> <%= alert.updated_at %></td>
     <td><%= link_to 'Show', alert %></td>
     <td><%= link_to 'Edit', edit_alert_path(alert) %></td>
     <td><%= link_to 'Destroy', alert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
