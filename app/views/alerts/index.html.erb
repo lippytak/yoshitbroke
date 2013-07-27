@@ -21,7 +21,7 @@
                 <%= p.phone_number %>,
               <% end %>
             </td>
-            <td><%= alert.status %></td>
+            <td class="status<%= alert.status %>"><%= alert.status %></td>
             <td><%= alert.updated_at %></td>
             <td><%= link_to 'Show', alert, :class=>'button small' %></td>
             <td><%= link_to 'Edit', edit_alert_path(alert), :class=>'button secondary small' %></td>
