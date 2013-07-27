@@ -25,6 +25,9 @@ class AlertsController < ApplicationController
   # GET /alerts/new.json
   def new
     @alert = Alert.new
+    2.times do
+      phone = @alert.phones.build
+    end
 
     respond_to do |format|
       format.html # new.html.erb
