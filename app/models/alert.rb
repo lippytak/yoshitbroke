@@ -19,13 +19,19 @@ class Alert < ActiveRecord::Base
 
   def trigger_sms_alert
     if gone_down?
-      send_sms_to_all_phones
+      send_sms_to_all_phones('down')
+    elsif back_up?
+      send_sms_to_all_phones('up')
     end
     update_status
   end
   
   def gone_down?
     self.status == 1 and live_status == -1
+  end
+
+  def back_up?
+    self.status == -1 and live_status == 1
   end
 
   def live_status
@@ -47,13 +53,20 @@ class Alert < ActiveRecord::Base
     self.save
   end
 
-  def send_sms_to_all_phones
+  def send_sms_to_all_phones(flag)
+    if flag == 'down'
+      body = "Yo shit broke! #{self.url}"
+      puts body
+    else flag == 'up'
+      body = "Yo everything is cool! #{self.url}"
+      puts body
+    end
     self.phones.each do |p|
-      send_sms(p.phone_number)
+      send_sms(p.phone_number, body)
     end
   end
 
-  def send_sms(phone_number)
+  def send_sms(phone_number, body)
     sid = ENV['ACCOUNT_SID']
     auth_token = ENV['AUTH_TOKEN']
     from_number = ENV['TWIL_NUMBER']
@@ -63,7 +76,7 @@ class Alert < ActiveRecord::Base
     @client.account.sms.messages.create(
     :from => from_number,
     :to => phone_number,
-    :body => "Yo shit broke! #{self.url}"
+    :body => body
     )
   end
 end
