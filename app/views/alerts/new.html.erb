@@ -2,16 +2,7 @@
 	<div class="small-12 large-12 columns">
 		<h1>New alert</h1>
 
-		<%= form_for @alert, url: {action: "create"}, html: {class:"nifty_form"} do |f| %>
-		  <%= f.label "URL:" %>
-		  <%= f.text_field :url %>
-
-		  <br>
-		  <%= f.label "Phones:" %>
-
-		  <br>
-		  <%= f.submit "Create" %>
-		<% end %>
+		<%= render 'form' %>
 
 		<%= link_to 'Back', alerts_path %>
   </div>

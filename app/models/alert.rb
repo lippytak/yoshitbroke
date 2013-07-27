@@ -1,9 +1,10 @@
 class Alert < ActiveRecord::Base
-  attr_accessible :url, :phones
+  attr_accessible :url, :phones, :phones_attributes
   has_and_belongs_to_many :phones
   before_validation :format_url
   validates_format_of :url, :with => URI::regexp(%w(http https))
   before_save :set_status_to_live
+  accepts_nested_attributes_for :phones
 
   def format_url
     self.url = "http://#{self.url}" unless self.url[/^https?/]

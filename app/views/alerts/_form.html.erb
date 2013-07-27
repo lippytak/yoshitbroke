@@ -10,6 +10,18 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= f.label "URL:" %>
+  <%= f.text_field :url %>
+  
+  <div class="field">
+    <div class="control-group">
+      <%= f.fields_for :phones do |builder| %>
+        <%= render 'phones', :f => builder %>
+      <% end %>
+    </div>
+  </div>
+  <div class="button small addField"><%= link_to_add_fields "Add a phone number", f, :phones %></div>
 
   <div class="actions">
     <%= f.submit %>
