@@ -11,4 +11,5 @@
 	*= require_foundation
 	*= require foundation_and_overrides
 	*= require custom
+	*= require general_foundicons
 */
