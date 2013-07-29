@@ -70,6 +70,7 @@ class Alert < ActiveRecord::Base
     sid = ENV['ACCOUNT_SID']
     auth_token = ENV['AUTH_TOKEN']
     from_number = ENV['TWIL_NUMBER']
+    body = helper.truncate(body, length: 160)
 
     @client = Twilio::REST::Client.new sid, auth_token
 
